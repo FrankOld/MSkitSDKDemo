@@ -302,9 +302,6 @@ public class AgentWebFragment extends Fragment implements FragmentKeyDown {
         builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-//                initSDK(etSdkKey.getText().toString().trim());
-//                Intent intent = new Intent(IndexActivity.this, ShowWebWithSdKVerActivity.class);
-//                startActivity(intent);
 
                 doLogin(etSdkKey.getText().toString().trim(), etUserId.getText().toString().trim());
 
@@ -359,8 +356,6 @@ public class AgentWebFragment extends Fragment implements FragmentKeyDown {
                 Log.d(TAG, "onSuccess: response = " + response + " loginEntity = " + loginEntity);
                 if (loginEntity != null && "E_000".equals(loginEntity.getCode()) && loginEntity.getData() != null) {
                     Toast.makeText(getContext(), "登录成功", Toast.LENGTH_SHORT).show();
-//                    XEToken token = new XEToken(loginEntity.getData().getToken_key(), loginEntity.getData().getToken_value());
-//                    xiaoEWeb.sync(token);
 
                     // 测试Cookies
                     try {
@@ -376,7 +371,6 @@ public class AgentWebFragment extends Fragment implements FragmentKeyDown {
                         String tagInfo = AgentWebConfig.getCookiesByUrl(targetUrl);
                         Log.i(TAG, "tag:" + tagInfo);
 
-//                        AgentWebConfig.syncCookie("http://www.jd.com", "ID=IDHl3NVU0N3ltZm9OWHhubHVQZW1BRThLdGhLaFc5TnVtQWd1S2g1REcwNVhTS3RXQVFBQEBFDA984906B62C444931EA0");
                         AgentWebConfig.syncCookie(getUrl(), "sdk_version=" + AgentWebConfig.AGENTWEB_VERSION);
                         AgentWebConfig.syncCookie(getUrl(), "sdk_key=" + "SDKTest");
                         AgentWebConfig.syncCookie(getUrl(), "sdk_token=" + loginEntity.getData().getToken());
@@ -385,9 +379,6 @@ public class AgentWebFragment extends Fragment implements FragmentKeyDown {
 
                         String tag = AgentWebConfig.getCookiesByUrl(targetUrl);
                         Log.i(TAG, "tag:" + tag);
-
-//                        AgentWebConfig.removeSessionCookies();
-//                        Log.i(TAG, "removeSessionCookies:" + AgentWebConfig.getCookiesByUrl(targetUrl));
 
                         if (mSkitWeb != null) {
                             mSkitWeb.reload(); // 刷新
