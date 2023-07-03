@@ -1,9 +1,0 @@
-apply plugin: 'uploadFir'
-
-// 上传Fir 执行assembleXXXUploadFir的Task执行打包与上传
-uploadFir {
-    apiToken = "6f075f390b1eb2321865422f9dd3bfdb" // apiToken 需要在 fir.im 申请
-    appName = firAppName // 应用列表显示的名称
-    uploadFileName = firUploadFileName // 上传的文件名前缀，若未配置取项目名称
-    appIconPath = firUploadAppIconPath // fir平台显示的图片icon，只需要配置app文件夹之后的路径即可，例如src/main/res/mipmap路径即可
-}

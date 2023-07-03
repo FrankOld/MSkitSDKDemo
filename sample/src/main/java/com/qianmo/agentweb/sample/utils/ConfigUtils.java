@@ -3,12 +3,7 @@ package com.qianmo.agentweb.sample.utils;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-/**
- * Created by york on 2019-06-26.
- */
 public class ConfigUtils {
-
-    public static final String[] ENVIR_TITLES = new String[]{"开发环境", "现网环境"};
 
     private static final String[] LOGIN_URL_ARRY = new String[]{
             "https://test.api.mansenwenhua77.com/",
@@ -34,14 +29,6 @@ public class ConfigUtils {
             mConfigUtils = new ConfigUtils(context);
         }
         return mConfigUtils;
-    }
-
-    public void setEnvir(int envir) {
-        mPreferences.edit().putInt(ENVIR_KEY, envir).commit();
-    }
-
-    public int getEnvir() {
-        return mPreferences.getInt(ENVIR_KEY, 0);
     }
 
     public String getLoginUrl() {

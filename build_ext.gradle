@@ -3,13 +3,4 @@ ext {
     buildToolsSdk = "33.0.0"
     minSdkVer = 19
     targetSdk = 33
-
-    dirs = [
-            gradle: "${rootDir}/gradle"
-    ]
-
-    configs = [
-            ylm_repo  : "${dirs.gradle}/ylm-repo.gradle",
-            upload_fir: "${dirs.gradle}/upload-fir.gradle"
-    ]
 }

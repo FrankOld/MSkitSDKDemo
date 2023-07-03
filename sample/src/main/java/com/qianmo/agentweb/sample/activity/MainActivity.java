@@ -1,7 +1,5 @@
 package com.qianmo.agentweb.sample.activity;
 
-import static com.qianmo.agentweb.sample.utils.ConfigUtils.ENVIR_TITLES;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -22,7 +20,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.gson.Gson;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.impl.LoadingPopupView;
-import com.lxj.xpopup.interfaces.OnSelectListener;
 import com.qianmo.agentweb.core.AgentWebConfig;
 import com.qianmo.agentweb.sample.BuildConfig;
 import com.qianmo.agentweb.sample.R;
@@ -30,7 +27,6 @@ import com.qianmo.agentweb.sample.net.LoginEntity;
 import com.qianmo.agentweb.sample.net.OkHttpHelper;
 import com.qianmo.agentweb.sample.net.SimpleCallBack;
 import com.qianmo.agentweb.sample.utils.ConfigUtils;
-import com.qianmo.agentweb.sample.utils.SDKDemoEnvUtils;
 import com.qianmo.agentweb.utils.SPUtils;
 
 import java.io.IOException;
@@ -62,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
         findViewById(R.id.user_logout_tv).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                XiaoEWeb.userLogout(IndexActivity.this.getApplicationContext());
                 logout(true);
             }
         });
@@ -78,20 +73,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showInfoInputDialog();
-            }
-        });
-
-        findViewById(R.id.switch_envir_tv).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                XPopup.Builder builder = new XPopup.Builder(MainActivity.this);
-                builder.asBottomList("切换环境：当前环境（" + ENVIR_TITLES[mConfigUtils.getEnvir()] + "）", ENVIR_TITLES, new OnSelectListener() {
-                    @Override
-                    public void onSelect(int position, String text) {
-                        mConfigUtils.setEnvir(position);
-                        SDKDemoEnvUtils.relaunchApp(true);
-                    }
-                }).show();
             }
         });
 
@@ -152,8 +133,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 initSDK(etSdkKey.getText().toString().trim());
-//                Intent intent = new Intent(IndexActivity.this, ShowWebWithSdKVerActivity.class);
-//                startActivity(intent);
 
                 doLogin(etSdkKey.getText().toString().trim(), etUserId.getText().toString().trim());
 
@@ -213,8 +192,6 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "onSuccess: response = " + response + " loginEntity = " + loginEntity);
                 if (loginEntity != null && "E_000".equals(loginEntity.getCode()) && loginEntity.getData() != null) {
                     Toast.makeText(MainActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
-//                    XEToken token = new XEToken(loginEntity.getData().getToken_key(), loginEntity.getData().getToken_value());
-//                    xiaoEWeb.sync(token);
 
                     // 测试Cookies
                     try {
@@ -230,7 +207,6 @@ public class MainActivity extends AppCompatActivity {
                         String tagInfo = AgentWebConfig.getCookiesByUrl(targetUrl);
                         Log.i(TAG, "tag:" + tagInfo);
 
-//                        AgentWebConfig.syncCookie("http://www.jd.com", "ID=IDHl3NVU0N3ltZm9OWHhubHVQZW1BRThLdGhLaFc5TnVtQWd1S2g1REcwNVhTS3RXQVFBQEBFDA984906B62C444931EA0");
                         AgentWebConfig.syncCookie(getUrl(), "sdk_key=" + "SDKTest");
                         AgentWebConfig.syncCookie(getUrl(), "sdk_token=" + loginEntity.getData().getToken());
                         AgentWebConfig.syncCookie(getUrl(), "sdk_refreshToken=" + loginEntity.getData().getRefreshToken());
@@ -238,9 +214,6 @@ public class MainActivity extends AppCompatActivity {
 
                         String tag = AgentWebConfig.getCookiesByUrl(targetUrl);
                         Log.i(TAG, "tag:" + tag);
-
-//                        AgentWebConfig.removeSessionCookies();
-//                        Log.i(TAG, "removeSessionCookies:" + AgentWebConfig.getCookiesByUrl(targetUrl));
 
                         gotoWebSDK();
                     } catch (Exception e) {

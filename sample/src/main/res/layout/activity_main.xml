@@ -29,15 +29,6 @@
             android:text="登出"
             android:textColor="#fff" />
 
-        <TextView
-            android:id="@+id/switch_envir_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="right"
-            android:padding="12dp"
-            android:text="切换环境"
-            android:textColor="#fff" />
-
     </androidx.appcompat.widget.Toolbar>
 
     <View

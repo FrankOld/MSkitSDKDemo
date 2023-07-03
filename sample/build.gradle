@@ -3,26 +3,8 @@ plugins {
 }
 
 ext {
-    appPackageName = "com.qianmo.agentweb.sample"
-
-    firAppName = "MSWebDemo"
-    firUploadFileName = "mswebdemo"
-    firUploadAppIconPath = "src/main/res/mipmap-xxhdpi/ic_launcher.webp"
+    appPackageName = "com.qianmo.agentweb.sample.ext"
 }
-
-apply from: configs.upload_fir
-
-static def getFeatureSpec() {
-    def branchName = 'git symbolic-ref --short -q HEAD'.execute().text.trim()
-    def commitCountSinceMaster = 'git rev-list master.. --count'.execute().text.trim()
-
-    def featureSpec = "$branchName+$commitCountSinceMaster"
-    println "getFeatureSpec()：$featureSpec"
-
-    return featureSpec
-}
-
-def featureSpec = getFeatureSpec()
 
 android {
     compileSdk compileSdkVer
@@ -51,7 +33,6 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
-            versionNameSuffix "-${featureSpec}-dev"
             signingConfig signingConfigs.release
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
