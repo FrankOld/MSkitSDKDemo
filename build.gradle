@@ -19,9 +19,6 @@ allprojects {
 
         // 第三方开源库仓库
         maven { url "https://jitpack.io" }
-
-        // 本地jar包
-        flatDir { dirs 'libs' }
     }
 }
 
