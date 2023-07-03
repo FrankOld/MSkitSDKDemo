@@ -6,12 +6,10 @@ import android.content.SharedPreferences;
 public class ConfigUtils {
 
     private static final String[] LOGIN_URL_ARRY = new String[]{
-            "https://test.api.mansenwenhua77.com/",
             "https://api.pro.mansenwenhua77.com/"
     };
 
     private static final String[] SDK_URL_ARRY = new String[]{
-            "https://test.h5.mansenwenhua77.com/",
             "https://h5.api.mansenwenhua77.com/"
     };
 
