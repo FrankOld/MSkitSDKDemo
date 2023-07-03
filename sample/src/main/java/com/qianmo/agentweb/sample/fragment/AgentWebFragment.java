@@ -371,8 +371,8 @@ public class AgentWebFragment extends Fragment implements FragmentKeyDown {
                         String tagInfo = AgentWebConfig.getCookiesByUrl(targetUrl);
                         Log.i(TAG, "tag:" + tagInfo);
 
-                        AgentWebConfig.syncCookie(getUrl(), "sdk_version=" + AgentWebConfig.AGENTWEB_VERSION);
-                        AgentWebConfig.syncCookie(getUrl(), "sdk_key=" + "SDKTest");
+                        // 保存登录信息
+                        AgentWebConfig.syncCookie(getUrl(), "sdk_key=" + "SDKTest");  // TODO 替换自己对应的渠道key
                         AgentWebConfig.syncCookie(getUrl(), "sdk_token=" + loginEntity.getData().getToken());
                         AgentWebConfig.syncCookie(getUrl(), "sdk_refreshToken=" + loginEntity.getData().getRefreshToken());
                         AgentWebConfig.syncCookie(getUrl(), "sdk_userBody=" + new Gson().toJson(loginEntity.getData().getBody()));
