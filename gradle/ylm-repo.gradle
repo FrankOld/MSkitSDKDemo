@@ -1,0 +1,47 @@
+def readFromLocalProperties() {
+    def localProperties = new Properties()
+    try {
+        def localFile = project.rootProject.file('local.properties')
+        if (localFile != null && localFile.exists()) {
+            localProperties.load(localFile.newDataInputStream())
+        }
+    } catch (Exception e) {
+        e.printStackTrace()
+    }
+
+    return localProperties.getProperty("yilimi.repo.dir")
+}
+
+static def readFromEnvironment() {
+    return System.getenv("YILIMI_REPO_PATH")
+}
+
+def findRelativePath() {
+    def path = new File(rootDir.parentFile, "ylm-repo")
+    if (path.exists() && path.isDirectory()) {
+        return path.absolutePath
+    }
+    return null
+}
+
+def repoPath = readFromLocalProperties()
+if (repoPath == null) {
+    repoPath = readFromEnvironment()
+}
+if (repoPath == null) {
+    repoPath = findRelativePath()
+}
+
+println "ylm-repo：$repoPath"
+
+if (repoPath) {
+    project.ext.ylmRepo = repoPath
+} else {
+    def msg = '''
+未配置ylm-repo路径！请使用任意一种方式配置本地ylm-repo路径:
+1. （相对路径）在当前项目路径上一级拉取ylm-repo仓库，且命名保持ylm-repo
+2. （多工程共用）配置YILIMI_REPO_PATH环境变量，指向ylm-repo路径。
+3. （单工程使用）在local.properties中配置yilimi.repo.dir属性：yilimi.repo.dir=/path/to/ylm-repo/
+'''
+    throw new IllegalArgumentException(msg)
+}

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/tv_shop_url"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="channelKey:"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/et_shop_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_shop_url"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16sp"
+        android:hint="请输入channelKey"
+        android:text="SDKTest" />
+
+    <TextView
+        android:id="@+id/tv_user_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/et_shop_url"
+        android:layout_marginTop="16dp"
+        android:text="userId:"
+        android:textColor="@color/black"
+        android:textSize="20sp" />
+
+    <EditText
+        android:id="@+id/et_user_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_user_id"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16sp"
+        android:hint="请输入app_user_id" />
+
+</RelativeLayout>

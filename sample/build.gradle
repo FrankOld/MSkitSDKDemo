@@ -1,0 +1,91 @@
+plugins {
+    id 'com.android.application'
+}
+
+ext {
+    appPackageName = "com.qianmo.agentweb.sample"
+
+    firAppName = "MSWebDemo"
+    firUploadFileName = "mswebdemo"
+    firUploadAppIconPath = "src/main/res/mipmap-xxhdpi/ic_launcher.webp"
+}
+
+apply from: configs.upload_fir
+
+static def getFeatureSpec() {
+    def branchName = 'git symbolic-ref --short -q HEAD'.execute().text.trim()
+    def commitCountSinceMaster = 'git rev-list master.. --count'.execute().text.trim()
+
+    def featureSpec = "$branchName+$commitCountSinceMaster"
+    println "getFeatureSpec()：$featureSpec"
+
+    return featureSpec
+}
+
+def featureSpec = getFeatureSpec()
+
+android {
+    compileSdk compileSdkVer
+    buildToolsVersion buildToolsSdk
+    defaultConfig {
+        applicationId appPackageName
+        minSdkVersion minSdkVer
+        targetSdkVersion targetSdk
+        versionCode 20230621
+        versionName "1.0.0"
+
+        multiDexEnabled true
+    }
+    signingConfigs {
+        release {
+            storeFile file("./keystore/keystore.jks")
+            storePassword "admin123"
+            keyAlias "agentweb"
+            keyPassword "admin123"
+        }
+    }
+    buildTypes {
+        release {
+            signingConfig signingConfigs.release
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            versionNameSuffix "-${featureSpec}-dev"
+            signingConfig signingConfigs.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    sourceSets { main { assets.srcDirs = ['src/main/assets', 'src/main/assets/'] } }
+
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+        }
+    }
+}
+
+dependencies {
+    implementation 'androidx.appcompat:appcompat:1.5.0'
+    implementation 'com.google.android.material:material:1.6.1'
+
+    implementation 'com.google.code.gson:gson:2.8.6'
+
+    implementation 'com.squareup.okhttp3:okhttp:3.10.0'
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.10.0'
+    implementation 'io.github.li-xiaojun:xpopup:2.9.4'
+
+    // MSkitSDK
+    implementation 'io.github.frankold:webcore:1.0.2'
+}

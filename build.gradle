@@ -1,0 +1,46 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    apply from: 'build_ext.gradle'
+
+    apply from: configs.ylm_repo
+
+    repositories {
+        // 内部仓库
+        maven { url ylmRepo }
+
+        // 通用仓库
+        mavenCentral()
+        google()
+    }
+    dependencies {
+        classpath "com.android.tools.build:gradle:7.0.3"
+        // Fir上传插件
+        classpath "com.yilimi.base:ylm-plugin-uploadfir:1.0.0"
+    }
+}
+
+allprojects {
+    repositories {
+        // 内部仓库
+        maven { url ylmRepo }
+
+        // 通用仓库
+        mavenCentral()
+        google()
+        jcenter()
+
+        // 第三方开源库仓库
+        maven { url "https://jitpack.io" }
+
+        // 本地jar包
+        flatDir { dirs 'libs' }
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+//tasks.getByPath(":agentweb-core:mavenAndroidJavadocs").enabled = false
+//tasks.getByPath(":agentweb-download:mavenAndroidJavadocs").enabled = false
+//tasks.getByPath(":agentweb-filechooser:mavenAndroidJavadocs").enabled = false
