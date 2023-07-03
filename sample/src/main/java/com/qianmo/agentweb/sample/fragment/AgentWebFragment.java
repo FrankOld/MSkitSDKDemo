@@ -15,7 +15,6 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.ValueCallback;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -26,9 +25,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.fragment.app.Fragment;
 
-import com.google.gson.Gson;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.impl.LoadingPopupView;
+import com.qianmo.agentweb.MSToken;
 import com.qianmo.agentweb.MSkitWeb;
 import com.qianmo.agentweb.bridge.JsBridgeListener;
 import com.qianmo.agentweb.bridge.JsCallbackResponse;
@@ -120,7 +119,7 @@ public class AgentWebFragment extends Fragment implements FragmentKeyDown {
                     Toast.makeText(getActivity(), "登录成功: " + response, Toast.LENGTH_SHORT).show();
                     break;
                 case JsInteractType.LOGOUT_FROM_WEB:
-                    toCleanWebCache();
+                    mSkitWeb.syncNot();
                     Toast.makeText(getActivity(), "登出成功: " + response, Toast.LENGTH_SHORT).show();
                     break;
                 case JsInteractType.LOGIN_BY_APP:
@@ -295,7 +294,7 @@ public class AgentWebFragment extends Fragment implements FragmentKeyDown {
         final EditText etSdkKey = view.findViewById(R.id.et_shop_url);
         final EditText etUserId = view.findViewById(R.id.et_user_id);
 
-        etSdkKey.setText("SDKTest");
+        etSdkKey.setText(mConfigUtils.getSDKChannelKey());
         etUserId.setText("UserIdTest");
 
         builder.setTitle("请输入以下信息");
@@ -357,36 +356,19 @@ public class AgentWebFragment extends Fragment implements FragmentKeyDown {
                 if (loginEntity != null && "E_000".equals(loginEntity.getCode()) && loginEntity.getData() != null) {
                     Toast.makeText(getContext(), "登录成功", Toast.LENGTH_SHORT).show();
 
-                    // 测试Cookies
-                    try {
-                        String targetUrl = "";
-                        Log.i(TAG, "cookies:" + AgentWebConfig.getCookiesByUrl(targetUrl = getUrl()));
-                        AgentWebConfig.removeAllCookies(new ValueCallback<Boolean>() {
-                            @Override
-                            public void onReceiveValue(Boolean value) {
-                                Log.i(TAG, "onResume():" + value);
-                            }
-                        });
+                    MSToken msToken = new MSToken();
+                    msToken.setToken(loginEntity.getData().getToken());
+                    msToken.setRefreshToken(loginEntity.getData().getRefreshToken());
 
-                        String tagInfo = AgentWebConfig.getCookiesByUrl(targetUrl);
-                        Log.i(TAG, "tag:" + tagInfo);
+                    LoginEntity.BodyBean bodyBean = loginEntity.getData().getBody();
 
-                        // 保存登录信息
-                        AgentWebConfig.syncCookie(getUrl(), "sdk_key=" + "SDKTest");  // TODO 替换自己对应的渠道key
-                        AgentWebConfig.syncCookie(getUrl(), "sdk_token=" + loginEntity.getData().getToken());
-                        AgentWebConfig.syncCookie(getUrl(), "sdk_refreshToken=" + loginEntity.getData().getRefreshToken());
-                        AgentWebConfig.syncCookie(getUrl(), "sdk_userBody=" + new Gson().toJson(loginEntity.getData().getBody()));
+                    MSToken.BodyBean msBodyBean = new MSToken.BodyBean();
+                    msBodyBean.setIsBind(bodyBean.getIsBind());
+                    msBodyBean.setIsNew(bodyBean.getIsNew());
 
-                        String tag = AgentWebConfig.getCookiesByUrl(targetUrl);
-                        Log.i(TAG, "tag:" + tag);
+                    msToken.setBody(msBodyBean);
 
-                        if (mSkitWeb != null) {
-                            mSkitWeb.reload(); // 刷新
-                        }
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        Toast.makeText(getContext(), "登录失败: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
+                    mSkitWeb.sync(msToken);
                 } else {
                     Toast.makeText(getContext(), "登录失败", Toast.LENGTH_SHORT).show();
                 }

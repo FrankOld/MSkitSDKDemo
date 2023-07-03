@@ -42,22 +42,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="12dp"
-        android:text="直接进入小程序SDK"
-        android:textSize="18sp"
-        android:visibility="visible" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#D4D4D4" />
-
-    <TextView
-        android:id="@+id/web_new_sdk_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:padding="12dp"
-        android:text="先登录再进入小程序SDK"
+        android:text="点击进入 看剧"
         android:textSize="18sp"
         android:visibility="visible" />
 

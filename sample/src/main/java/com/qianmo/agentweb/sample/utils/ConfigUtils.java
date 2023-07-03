@@ -13,6 +13,10 @@ public class ConfigUtils {
             "https://h5.api.mansenwenhua77.com/"
     };
 
+    private static final String[] SDK_CHANNEL_KEY = new String[]{
+            "SDKTest"
+    };
+
     private static final String ENVIR_KEY = "ENVIR_KEY";
 
     private static SharedPreferences mPreferences;
@@ -39,5 +43,9 @@ public class ConfigUtils {
         return SDK_URL_ARRY[envirCode];
     }
 
+    public String getSDKChannelKey() {
+        int envirCode = mPreferences.getInt(ENVIR_KEY, 0);
+        return SDK_CHANNEL_KEY[envirCode];
+    }
 
 }
