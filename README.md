@@ -18,7 +18,7 @@ allprojects {
 
 在子项目build.gradle的dependencies中根据需求引入依赖:
 ```
-implementation 'io.github.frankold:webcore:1.0.2' //最新版本号
+implementation 'io.github.frankold:webcore:1.0.4' //最新版本号
 
 ```
 ## 文档
