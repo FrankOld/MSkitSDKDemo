@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.webkit.ValueCallback;
+import android.webkit.WebStorage;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         }
         //清空所有 AgentWeb 硬盘缓存，包括 WebView 的缓存 , AgentWeb 下载的图片 ，视频 ，apk 等文件。
         AgentWebConfig.clearDiskCache(this);
+        WebStorage.getInstance().deleteAllData();
     }
 
     private String getUrl() {
