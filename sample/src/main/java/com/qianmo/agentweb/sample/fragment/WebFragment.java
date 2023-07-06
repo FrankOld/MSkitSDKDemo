@@ -50,9 +50,9 @@ import okhttp3.Response;
 /**
  * Created by wangxianghui on 2017/5/15.
  */
-public class AgentWebFragment extends Fragment implements FragmentKeyDown {
+public class WebFragment extends Fragment implements FragmentKeyDown {
 
-    public static final String TAG = AgentWebFragment.class.getSimpleName();
+    public static final String TAG = WebFragment.class.getSimpleName();
     public static final String URL_KEY = "url_key";
 
     private ImageView mBackImageView;
@@ -70,8 +70,8 @@ public class AgentWebFragment extends Fragment implements FragmentKeyDown {
 
     private LoadingPopupView loadingPopup;
 
-    public static AgentWebFragment getInstance(Bundle bundle) {
-        AgentWebFragment mAgentWebFragment = new AgentWebFragment();
+    public static WebFragment getInstance(Bundle bundle) {
+        WebFragment mAgentWebFragment = new WebFragment();
         if (bundle != null) {
             mAgentWebFragment.setArguments(bundle);
         }
@@ -82,7 +82,7 @@ public class AgentWebFragment extends Fragment implements FragmentKeyDown {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_agentweb, container, false);
+        return inflater.inflate(R.layout.fragment_web, container, false);
     }
 
     @Override
@@ -163,11 +163,11 @@ public class AgentWebFragment extends Fragment implements FragmentKeyDown {
                 case R.id.iv_back:
                     // true表示AgentWeb处理了该事件
                     if (!mSkitWeb.back()) {
-                        AgentWebFragment.this.getActivity().finish();
+                        WebFragment.this.getActivity().finish();
                     }
                     break;
                 case R.id.iv_finish:
-                    AgentWebFragment.this.getActivity().finish();
+                    WebFragment.this.getActivity().finish();
                     break;
                 case R.id.iv_more:
                     showPoPup(v);
@@ -206,7 +206,7 @@ public class AgentWebFragment extends Fragment implements FragmentKeyDown {
                     return true;
                 case R.id.copy:
                     if (mSkitWeb != null) {
-                        toCopy(AgentWebFragment.this.getContext(), mSkitWeb.getUrl());
+                        toCopy(WebFragment.this.getContext(), mSkitWeb.getUrl());
                     }
                     return true;
                 case R.id.default_browser:

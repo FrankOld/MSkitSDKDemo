@@ -37,12 +37,12 @@
         android:background="#D4D4D4" />
 
     <TextView
-        android:id="@+id/web_new_sdk_btn1"
+        android:id="@+id/web_new_sdk_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="12dp"
-        android:text="点击进入 看剧（Fragment）"
+        android:text="点击进入 看剧（Activity）"
         android:textSize="18sp"
         android:visibility="visible" />
 
@@ -52,12 +52,12 @@
         android:background="#D4D4D4" />
 
     <TextView
-        android:id="@+id/web_new_sdk_btn"
+        android:id="@+id/web_new_sdk_btn1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="12dp"
-        android:text="点击进入 看剧（Activity）"
+        android:text="点击进入 看剧（Fragment）"
         android:textSize="18sp"
         android:visibility="visible" />
 

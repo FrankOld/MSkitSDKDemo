@@ -20,21 +20,23 @@
         <activity
             android:name=".activity.MainActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
 
         <activity
-            android:name=".activity.CommonActivity"
+            android:name=".activity.WebCommonActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:hardwareAccelerated="true"
             android:launchMode="singleTop" />
 
         <activity
-            android:name=".activity.WebCommonActivity"
+            android:name=".activity.WebFragmentActivity"
             android:configChanges="orientation|screenSize"
             android:exported="false"
             android:hardwareAccelerated="true"
