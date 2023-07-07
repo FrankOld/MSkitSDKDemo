@@ -68,6 +68,41 @@
         android:visibility="visible" />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:padding="12dp"
+        android:text="请选择接入方式："
+        android:textSize="16sp"
+        android:visibility="visible" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:checkedButton="@id/default1"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/default1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DEFAULT（使用sdk默认帐号体系）"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/own"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="OWN（接入方自有帐号体系）"
+            android:textSize="16sp" />
+
+    </RadioGroup>
+
+    <TextView
         android:id="@+id/tv_current_sdk_version"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

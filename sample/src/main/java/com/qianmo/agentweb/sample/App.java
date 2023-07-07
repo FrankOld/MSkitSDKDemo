@@ -14,7 +14,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        MSkitWeb.init(this, ConfigUtils.getInstance(this).getSDKChannelKey(), MSkitWeb.SdkAccessMode.OWN, BuildConfig.DEBUG);
+        MSkitWeb.init(this, ConfigUtils.getInstance(this).getSDKChannelKey(), MSkitWeb.SdkAccessMode.DEFAULT, BuildConfig.DEBUG);
     }
 
 }

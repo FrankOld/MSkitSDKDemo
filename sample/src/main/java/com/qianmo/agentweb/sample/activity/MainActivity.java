@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -14,6 +15,7 @@ import com.qianmo.agentweb.MSkitWeb;
 import com.qianmo.agentweb.core.AgentWebConfig;
 import com.qianmo.agentweb.sample.BuildConfig;
 import com.qianmo.agentweb.sample.R;
+import com.qianmo.agentweb.utils.SPUtils;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -42,6 +44,18 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 gotoWebSDK();
+            }
+        });
+
+        RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
+                if (checkedId == R.id.default1) {
+                    SPUtils.putData(SPUtils.KEY_SDK_ACCESS_MODE, MSkitWeb.SdkAccessMode.DEFAULT.value);
+                } else {
+                    SPUtils.putData(SPUtils.KEY_SDK_ACCESS_MODE, MSkitWeb.SdkAccessMode.OWN.value);
+                }
             }
         });
 
