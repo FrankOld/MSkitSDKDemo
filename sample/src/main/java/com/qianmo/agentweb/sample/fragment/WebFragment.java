@@ -236,10 +236,8 @@ public class WebFragment extends Fragment implements FragmentKeyDown {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
 
         View view = LayoutInflater.from(getContext()).inflate(R.layout.dialog_input_info, null);
-        final EditText etSdkKey = view.findViewById(R.id.et_shop_url);
         final EditText etUserId = view.findViewById(R.id.et_user_id);
 
-        etSdkKey.setText(mConfigUtils.getSDKChannelKey());
         etUserId.setText("UserIdTest");
 
         builder.setTitle("请输入以下信息");
@@ -247,7 +245,7 @@ public class WebFragment extends Fragment implements FragmentKeyDown {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                doLogin(etSdkKey.getText().toString().trim(), etUserId.getText().toString().trim());
+                doLogin(etUserId.getText().toString().trim());
 
                 dialog.dismiss();
             }
@@ -267,7 +265,7 @@ public class WebFragment extends Fragment implements FragmentKeyDown {
     }
 
     // -------------------- 登录相关 start --------------------
-    private void doLogin(String channelKey, String userId) {
+    private void doLogin(String userId) {
         if (loadingPopup == null) {
             loadingPopup = new XPopup.Builder(this.getContext())
                     .dismissOnBackPressed(false)
@@ -280,7 +278,7 @@ public class WebFragment extends Fragment implements FragmentKeyDown {
         if (!TextUtils.isEmpty(userId)) {
             params.put("userId", userId);
         }
-        params.put("channelKey", channelKey);
+        params.put("channelKey", mConfigUtils.getSDKChannelKey());
         params.put("channelType", "5");
         params.put("client_id", "ms_apis");
         params.put("client_secret", "APHGN0VXP4vynmCXfWqjDrCiLFP1EJez");

@@ -48,12 +48,22 @@ public class MainActivity extends AppCompatActivity {
         });
 
         RadioGroup radioGroup = findViewById(R.id.radioGroup);
+        if ((Boolean) SPUtils.getData("access_mode_default", true)) {
+            radioGroup.check(R.id.default1);
+            SPUtils.putData(SPUtils.KEY_SDK_ACCESS_MODE, MSkitWeb.SdkAccessMode.DEFAULT.value);
+        } else {
+            radioGroup.check(R.id.own);
+            SPUtils.putData(SPUtils.KEY_SDK_ACCESS_MODE, MSkitWeb.SdkAccessMode.OWN.value);
+        }
+        SPUtils.getInstance(this, SPUtils.FILE_NAME);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int checkedId) {
                 if (checkedId == R.id.default1) {
+                    SPUtils.putData("access_mode_default", true);
                     SPUtils.putData(SPUtils.KEY_SDK_ACCESS_MODE, MSkitWeb.SdkAccessMode.DEFAULT.value);
                 } else {
+                    SPUtils.putData("access_mode_default", false);
                     SPUtils.putData(SPUtils.KEY_SDK_ACCESS_MODE, MSkitWeb.SdkAccessMode.OWN.value);
                 }
             }
