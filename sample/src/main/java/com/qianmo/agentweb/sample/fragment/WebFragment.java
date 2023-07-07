@@ -198,6 +198,11 @@ public class WebFragment extends Fragment implements FragmentKeyDown {
                         mSkitWeb.reload(); // 刷新
                     }
                     return true;
+                case R.id.default_clean:
+                    if (mSkitWeb != null) {
+                        mSkitWeb.syncNot();
+                    }
+                    return true;
                 default:
                     return false;
             }
