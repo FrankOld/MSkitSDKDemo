@@ -1,12 +1,7 @@
 package com.qianmo.agentweb.sample.activity;
 
 import android.app.AlertDialog;
-import android.content.ClipData;
-import android.content.ClipboardManager;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
@@ -32,7 +27,6 @@ import com.qianmo.agentweb.MSkitWeb;
 import com.qianmo.agentweb.bridge.JsBridgeListener;
 import com.qianmo.agentweb.bridge.JsCallbackResponse;
 import com.qianmo.agentweb.bridge.JsInteractType;
-import com.qianmo.agentweb.core.AgentWebConfig;
 import com.qianmo.agentweb.sample.R;
 import com.qianmo.agentweb.sample.net.LoginEntity;
 import com.qianmo.agentweb.sample.net.OkHttpHelper;
@@ -175,65 +169,11 @@ public class WebCommonActivity extends AppCompatActivity {
                         mSkitWeb.reload(); // 刷新
                     }
                     return true;
-                case R.id.copy:
-                    if (mSkitWeb != null) {
-                        toCopy(WebCommonActivity.this, mSkitWeb.getUrl());
-                    }
-                    return true;
-                case R.id.default_browser:
-                    if (mSkitWeb != null) {
-                        openBrowser(mSkitWeb.getUrl());
-                    }
-                    return true;
-                case R.id.default_clean:
-                    toCleanWebCache();
-                    return true;
                 default:
                     return false;
             }
         }
     };
-
-    /**
-     * 清除 WebView 缓存
-     */
-    private void toCleanWebCache() {
-        if (this.mSkitWeb != null) {
-            //清理所有跟WebView相关的缓存 ，数据库， 历史记录 等。
-            this.mSkitWeb.clearWebCache();
-            Toast.makeText(this, "已清理缓存", Toast.LENGTH_SHORT).show();
-            //清空所有 AgentWeb 硬盘缓存，包括 WebView 的缓存 , AgentWeb 下载的图片 ，视频 ，apk 等文件。
-            AgentWebConfig.clearDiskCache(this);
-        }
-    }
-
-    /**
-     * 打开浏览器
-     *
-     * @param targetUrl 外部浏览器打开的地址
-     */
-    private void openBrowser(String targetUrl) {
-        if (TextUtils.isEmpty(targetUrl) || targetUrl.startsWith("file://")) {
-            Toast.makeText(this, targetUrl + " 该链接无法使用浏览器打开。", Toast.LENGTH_SHORT).show();
-            return;
-        }
-        Intent intent = new Intent();
-        intent.setAction("android.intent.action.VIEW");
-        Uri mUri = Uri.parse(targetUrl);
-        intent.setData(mUri);
-        startActivity(intent);
-    }
-
-    /**
-     * 复制字符串
-     *
-     * @param context
-     * @param text
-     */
-    private void toCopy(Context context, String text) {
-        ClipboardManager mClipboardManager = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
-        mClipboardManager.setPrimaryClip(ClipData.newPlainText(null, text));
-    }
 
     private class MyJsBridgeListener implements JsBridgeListener {
         @Override
