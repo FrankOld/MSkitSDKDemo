@@ -197,11 +197,11 @@ public class WebCommonActivity extends AppCompatActivity {
                     break;
                 case JsInteractType.TITLE_RECEIVE:
                     String title = response.getResponseData();
-                    if (mTitleTextView != null && !TextUtils.isEmpty(title)) {
+                    if (!TextUtils.isEmpty(title)) {
                         if (title.length() > 10) {
                             title = title.substring(0, 10).concat("...");
                         }
-                        mTitleTextView.setText(title);
+                        if (mTitleTextView != null) mTitleTextView.setText(title);
                     }
                     break;
                 default:
