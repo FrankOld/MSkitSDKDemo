@@ -68,4 +68,5 @@ dependencies {
 
     // MSkitSDK
     implementation 'io.github.frankold:webcore:1.0.12'
+    implementation 'com.tencent.tbs:tbssdk:44286'
 }
