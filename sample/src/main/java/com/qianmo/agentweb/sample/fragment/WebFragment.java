@@ -73,6 +73,21 @@ public class WebFragment extends Fragment implements FragmentKeyDown {
         return mAgentWebFragment;
     }
 
+    /**
+     * 页面空白，请检查scheme是否加上， scheme://host:port/path?query&query 。
+     *
+     * @return mUrl
+     */
+    public String getUrl() {
+        String target = "";
+
+        if (TextUtils.isEmpty(target = this.getArguments().getString(URL_KEY))) {
+            target = ConfigUtils.getInstance(getContext()).getSDKUrl();
+        }
+
+        return target;
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -105,49 +120,27 @@ public class WebFragment extends Fragment implements FragmentKeyDown {
         mMoreImageView.setOnClickListener(mOnClickListener);
     }
 
-    private class MyJsBridgeListener implements JsBridgeListener {
-        @Override
-        public void onJsInteract(int actionType, JsCallbackResponse response) {
-            switch (actionType) {
-                case JsInteractType.LOGIN_FROM_WEB:
-                    Toast.makeText(getActivity(), "登录成功: " + response, Toast.LENGTH_SHORT).show();
-                    break;
-                case JsInteractType.LOGOUT_FROM_WEB:
-                    mSkitWeb.syncNot();
-                    Toast.makeText(getActivity(), "登出成功: " + response, Toast.LENGTH_SHORT).show();
-                    break;
-                case JsInteractType.LOGIN_BY_APP:
-                    Toast.makeText(getActivity(), "登录 token 已失效，请重新登录: " + response, Toast.LENGTH_SHORT).show();
-                    showInfoInputDialog();
-                    break;
-                case JsInteractType.TITLE_RECEIVE:
-                    String title = response.getResponseData();
-                    if (!TextUtils.isEmpty(title)) {
-                        if (title.length() > 10) {
-                            title = title.substring(0, 10).concat("...");
-                        }
-                        if (mTitleTextView != null) mTitleTextView.setText(title);
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
+    @Override
+    public void onResume() {
+        mSkitWeb.onResume();
+        super.onResume();
     }
 
-    /**
-     * 页面空白，请检查scheme是否加上， scheme://host:port/path?query&query 。
-     *
-     * @return mUrl
-     */
-    public String getUrl() {
-        String target = "";
+    @Override
+    public void onPause() {
+        mSkitWeb.onPause();
+        super.onPause();
+    }
 
-        if (TextUtils.isEmpty(target = this.getArguments().getString(URL_KEY))) {
-            target = ConfigUtils.getInstance(getContext()).getSDKUrl();
-        }
+    @Override
+    public boolean onFragmentKeyDown(int keyCode, KeyEvent event) {
+        return mSkitWeb.handleKeyEvent(keyCode, event);
+    }
 
-        return target;
+    @Override
+    public void onDestroyView() {
+        mSkitWeb.onDestroy();
+        super.onDestroyView();
     }
 
     private final View.OnClickListener mOnClickListener = new View.OnClickListener() {
@@ -209,27 +202,35 @@ public class WebFragment extends Fragment implements FragmentKeyDown {
         }
     };
 
-    @Override
-    public void onResume() {
-        mSkitWeb.onResume();
-        super.onResume();
-    }
-
-    @Override
-    public void onPause() {
-        mSkitWeb.onPause();
-        super.onPause();
-    }
-
-    @Override
-    public boolean onFragmentKeyDown(int keyCode, KeyEvent event) {
-        return mSkitWeb.handleKeyEvent(keyCode, event);
-    }
-
-    @Override
-    public void onDestroyView() {
-        mSkitWeb.onDestroy();
-        super.onDestroyView();
+    // -------------------- 登录相关 start --------------------
+    private class MyJsBridgeListener implements JsBridgeListener {
+        @Override
+        public void onJsInteract(int actionType, JsCallbackResponse response) {
+            switch (actionType) {
+                case JsInteractType.LOGIN_FROM_WEB:
+                    Toast.makeText(getActivity(), "登录成功: " + response, Toast.LENGTH_SHORT).show();
+                    break;
+                case JsInteractType.LOGOUT_FROM_WEB:
+                    mSkitWeb.syncNot();
+                    Toast.makeText(getActivity(), "登出成功: " + response, Toast.LENGTH_SHORT).show();
+                    break;
+                case JsInteractType.LOGIN_BY_APP:
+                    Toast.makeText(getActivity(), "登录 token 已失效，请重新登录: " + response, Toast.LENGTH_SHORT).show();
+                    showInfoInputDialog();
+                    break;
+                case JsInteractType.TITLE_RECEIVE:
+                    String title = response.getResponseData();
+                    if (!TextUtils.isEmpty(title)) {
+                        if (title.length() > 10) {
+                            title = title.substring(0, 10).concat("...");
+                        }
+                        if (mTitleTextView != null) mTitleTextView.setText(title);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
     }
 
     private void showInfoInputDialog() {
@@ -264,7 +265,6 @@ public class WebFragment extends Fragment implements FragmentKeyDown {
         dialog.show();
     }
 
-    // -------------------- 登录相关 start --------------------
     private void doLogin(String userId) {
         if (loadingPopup == null) {
             loadingPopup = new XPopup.Builder(this.getContext())
@@ -308,6 +308,7 @@ public class WebFragment extends Fragment implements FragmentKeyDown {
                     MSToken.BodyBean msBodyBean = new MSToken.BodyBean();
                     msBodyBean.setIsBind(bodyBean.getIsBind());
                     msBodyBean.setIsNew(bodyBean.getIsNew());
+                    msBodyBean.setSignMode(bodyBean.getSignMode());
 
                     msToken.setBody(msBodyBean);
 

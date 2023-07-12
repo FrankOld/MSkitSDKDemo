@@ -210,6 +210,7 @@ public class WebCommonActivity extends AppCompatActivity {
         }
     }
 
+    // -------------------- 登录相关 start --------------------
     private void showInfoInputDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -242,7 +243,6 @@ public class WebCommonActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    // -------------------- 登录相关 start --------------------
     private void doLogin(String userId) {
         if (loadingPopup == null) {
             loadingPopup = new XPopup.Builder(this)
@@ -286,6 +286,7 @@ public class WebCommonActivity extends AppCompatActivity {
                     MSToken.BodyBean msBodyBean = new MSToken.BodyBean();
                     msBodyBean.setIsBind(bodyBean.getIsBind());
                     msBodyBean.setIsNew(bodyBean.getIsNew());
+                    msBodyBean.setSignMode(bodyBean.getSignMode());
 
                     msToken.setBody(msBodyBean);
 

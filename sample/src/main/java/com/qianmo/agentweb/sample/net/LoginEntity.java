@@ -6,7 +6,8 @@ public class LoginEntity {
 	"data": {
 		"body": {
 			"isBind": "",
-			"isNew": ""
+			"isNew": "",
+			"signMode": 5
 		},
 		"expiresIn": 0,
 		"refreshToken": "",
@@ -110,11 +111,23 @@ public class LoginEntity {
         public void setTokenHead(String tokenHead) {
             this.tokenHead = tokenHead;
         }
+
+        @Override
+        public String toString() {
+            return "DataBean{" +
+                    "body=" + body +
+                    ", expiresIn='" + expiresIn + '\'' +
+                    ", refreshToken='" + refreshToken + '\'' +
+                    ", token='" + token + '\'' +
+                    ", tokenHead='" + tokenHead + '\'' +
+                    '}';
+        }
     }
 
     public static class BodyBean {
         private String isBind;
         private String isNew;
+        private int signMode;
 
         public String getIsBind() {
             return isBind;
@@ -131,6 +144,33 @@ public class LoginEntity {
         public void setIsNew(String isNew) {
             this.isNew = isNew;
         }
+
+        public int getSignMode() {
+            return signMode;
+        }
+
+        public void setSignMode(int signMode) {
+            this.signMode = signMode;
+        }
+
+        @Override
+        public String toString() {
+            return "BodyBean{" +
+                    "isBind='" + isBind + '\'' +
+                    ", isNew='" + isNew + '\'' +
+                    ", signMode=" + signMode +
+                    '}';
+        }
     }
 
+    @Override
+    public String toString() {
+        return "LoginEntity{" +
+                "code='" + code + '\'' +
+                ", message='" + message + '\'' +
+                ", data=" + data +
+                ", flag='" + flag + '\'' +
+                ", success=" + success +
+                '}';
+    }
 }
