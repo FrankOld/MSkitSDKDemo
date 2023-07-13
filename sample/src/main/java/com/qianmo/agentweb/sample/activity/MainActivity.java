@@ -76,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void logout() {
-//        WebStorage.getInstance().deleteAllData();
         MSkitWeb.userLogout(this);
         Toast.makeText(MainActivity.this, "已登出", Toast.LENGTH_SHORT).show();
     }
