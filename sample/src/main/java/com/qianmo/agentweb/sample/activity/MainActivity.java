@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         ((TextView) findViewById(R.id.tv_current_sdk_version)).setText(
-                "当前SDK版本：" + AgentWebConfig.AGENTWEB_VERSION + "\n当前APP版本：" + BuildConfig.VERSION_NAME + "，build：" + BuildConfig.VERSION_CODE
+                "当前SDK版本：" + MSkitWeb.getSDKVersion() + "\n当前APP版本：" + BuildConfig.VERSION_NAME + "，build：" + BuildConfig.VERSION_CODE
         );
 
     }
