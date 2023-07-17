@@ -67,6 +67,6 @@ dependencies {
     implementation 'io.github.li-xiaojun:xpopup:2.9.4'
 
     // MSkitSDK
-    implementation 'io.github.frankold:webcore:1.0.12'
+    implementation 'io.github.frankold:webcore:1.0.14'
     implementation 'com.tencent.tbs:tbssdk:44286'
 }
