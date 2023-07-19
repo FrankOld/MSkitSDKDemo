@@ -23,7 +23,6 @@ import androidx.fragment.app.Fragment;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.impl.LoadingPopupView;
 import com.qianmo.agentweb.MSToken;
-import com.qianmo.agentweb.MSkitWeb;
 import com.qianmo.agentweb.bridge.JsBridgeListener;
 import com.qianmo.agentweb.bridge.JsCallbackResponse;
 import com.qianmo.agentweb.bridge.JsInteractType;
@@ -33,6 +32,7 @@ import com.qianmo.agentweb.sample.net.LoginEntity;
 import com.qianmo.agentweb.sample.net.OkHttpHelper;
 import com.qianmo.agentweb.sample.net.SimpleCallBack;
 import com.qianmo.agentweb.sample.utils.ConfigUtils;
+import com.qianmo.agentwebX5.MSkitWebX5;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -56,7 +56,7 @@ public class WebFragment extends Fragment implements FragmentKeyDown {
     private ImageView mMoreImageView;
     private PopupMenu mPopupMenu;
 
-    private MSkitWeb mSkitWeb;
+    private MSkitWebX5 mSkitWeb;
 
     private ConfigUtils mConfigUtils;
 
@@ -98,7 +98,7 @@ public class WebFragment extends Fragment implements FragmentKeyDown {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        mSkitWeb = MSkitWeb.with(this)
+        mSkitWeb = MSkitWebX5.with(this)
                 .setAgentWebParent((ViewGroup) view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
                 .setJsBridgeListener(new MyJsBridgeListener())
                 .loadUrl(getUrl());

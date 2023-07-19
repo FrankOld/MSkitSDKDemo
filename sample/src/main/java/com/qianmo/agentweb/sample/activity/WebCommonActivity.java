@@ -23,7 +23,6 @@ import androidx.appcompat.widget.PopupMenu;
 import com.lxj.xpopup.XPopup;
 import com.lxj.xpopup.impl.LoadingPopupView;
 import com.qianmo.agentweb.MSToken;
-import com.qianmo.agentweb.MSkitWeb;
 import com.qianmo.agentweb.bridge.JsBridgeListener;
 import com.qianmo.agentweb.bridge.JsCallbackResponse;
 import com.qianmo.agentweb.bridge.JsInteractType;
@@ -32,6 +31,7 @@ import com.qianmo.agentweb.sample.net.LoginEntity;
 import com.qianmo.agentweb.sample.net.OkHttpHelper;
 import com.qianmo.agentweb.sample.net.SimpleCallBack;
 import com.qianmo.agentweb.sample.utils.ConfigUtils;
+import com.qianmo.agentwebX5.MSkitWebX5;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -54,7 +54,7 @@ public class WebCommonActivity extends AppCompatActivity {
     private ImageView mMoreImageView;
     private PopupMenu mPopupMenu;
 
-    private MSkitWeb mSkitWeb;
+    private MSkitWebX5 mSkitWeb;
 
     private ConfigUtils mConfigUtils;
 
@@ -70,7 +70,7 @@ public class WebCommonActivity extends AppCompatActivity {
         initView();
         LinearLayout container = findViewById(R.id.container_framelayout);
 
-        mSkitWeb = MSkitWeb.with(this)
+        mSkitWeb = MSkitWebX5.with(this)
                 .setAgentWebParent(container, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT))
                 .setJsBridgeListener(new MyJsBridgeListener())
                 .loadUrl(ConfigUtils.getInstance(this).getSDKUrl());
